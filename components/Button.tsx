@@ -3,13 +3,13 @@ import React from "react";
 
 import { FontAwesome } from "@expo/vector-icons";
 
-export default function Button({ label, theme }: any) {
+export default function Button({ label, theme, onPress }: any) {
   if (theme == "primary") {
     return (
       <View style={[styles.buttonContainer, styles.buttonPrimary]}>
         <Pressable
           style={[styles.button, {backgroundColor: '#fff'}]}
-          onPress={() => alert("You have press action button!")}
+          onPress={onPress}
         >
           <FontAwesome name='picture-o' size={18} color='#25292e' style={styles.buttonIcon} />
           <Text style={[styles.buttonLabel, {color: '#25292e'}]}>{label}</Text>
