@@ -1,12 +1,16 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, StyleSheet } from 'react-native'
 import React from 'react'
 
-interface ImageProps {
-    imageSource: string
-}
-
-export default function ImageViewer({ imageSource }: any) {
+export default function ImageViewer({ source }: any) {
   return (
-    <Image source={imageSource}></Image>
+    <Image source={source} style={styles.image} />
   )
 }
+
+const styles = StyleSheet.create({
+    image: {
+        width: 320,
+        height: 440,
+        borderRadius: 18
+    }
+});
