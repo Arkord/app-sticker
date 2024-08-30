@@ -7,35 +7,50 @@ import ImageViewer from "./components/ImageViewer";
 import Button from "./components/Button";
 import { useState } from "react";
 
-const imageSource = require("./assets/images/background-image.png");
+const placeholder = require("./assets/images/background-image.png");
 
 export default function App() {
-  const [selectedImage, setSelectedImage] = useState('');
+  const [selectedImage, setSelectedImage] = useState("");
+  const [showAppOptions, setShowAppOptions] = useState(false);
 
   const imagePickerAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
-      quality: 1
+      quality: 1,
     });
 
-    if(!result.canceled) {
+    if (!result.canceled) {
       console.log(result);
       setSelectedImage(result.assets[0].uri);
+      setShowAppOptions(true);
+    } else {
+      alert("You did not select an image!");
     }
-    else {
-      alert('You did not select an image!');
-    }
-  }
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <ImageViewer source={selectedImage} />
+        <ImageViewer placeholder={placeholder} source={selectedImage} />
       </View>
-      <View style={styles.footerContainer}>
-        <Button label="Chose a photo" theme="primary" onPress={imagePickerAsync}></Button>
-        <Button label="Use this photo"></Button>
-      </View>
+
+      {showAppOptions ? (
+        <View></View>
+      ) : (
+        <View style={styles.footerContainer}>
+          <Button
+            label="Chose a photo"
+            theme="primary"
+            onPress={imagePickerAsync}
+          ></Button>
+          <Button
+            label="Use this photo"
+            onPress={() => {
+              setShowAppOptions(true);
+            }}
+          ></Button>
+        </View>
+      )}
 
       <StatusBar style="auto" />
     </View>
